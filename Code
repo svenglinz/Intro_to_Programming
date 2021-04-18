@@ -1,0 +1,90 @@
+import pandas as pd
+
+def input_selection():
+
+    path = input("Please insert the path to the data file you want to input here:")
+    sep = int(input("Which separator is used in your file? Tab (0), Comma (1), Semicolon (2), Pipe (3) or else (4)"))
+
+    # if the path contains windows backslashes this must be replaced
+    if path.__contains__("\\"):
+        path = path.replace("\\", "/")
+
+    seps = ["\t", ",", ";", "|"]
+
+    while True:
+        if sep in range(5):
+
+            if sep == 4:
+                sep = input("Please type in the separator you used")
+
+            try:
+                bestsellers = pd.read_csv(path, sep = seps[sep])
+                print("Thanks. Your data has been imported sucessfully")
+                break
+            except FileNotFoundError:
+                print("whoops. Something seems to have gone wrong. \n"
+                      "Please make sure that your input path is correct")
+                path = input("path:")
+            except:
+                print("separator error, please try again")
+                sep = input("separator = ")
+        else:
+            sep = input("Please select a valid choice:")
+
+        #to break out of the program
+        if sep == "q" or path == "q":
+            print("Programm sucessfully quit")
+            break
+
+
+#function to display all books within a certain range of years (from start to end!)
+def function1():
+
+#function to display all books in a specific month and year
+def function2():
+
+#function to search for author
+def function3():
+    
+#function to search for a title
+def function4():
+
+#____________________________________________________________________
+#start program here 
+
+#select and import data
+input_selection()
+
+while True:
+    
+    selection = input("What would you like to do ? \n"
+                      "1: Look up year range \n"
+                      "2: Look up month/year \n"
+                      "3: Search for author \n"
+                      "4: Search for title \n"
+                      "q: Quit")
+
+    #convert to integer if possible
+    try:
+        selection = int(selection)
+    except ValueError:
+
+    #call different functions here which have been defined above!
+
+    if selection in range(5):
+        if selection == 1:
+            function1()
+        elif selection == 2:
+            function2()
+        elif selection == 3:
+            function3()
+        else:
+            function4()
+    elif selection in ["q", "Q"]:
+        print("Program sucessfully quit")
+        break
+    else:
+        print("Invalid Input. Please try again")
+
+
+
