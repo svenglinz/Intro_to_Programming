@@ -11,7 +11,6 @@
 #########################################################################
 import pandas as pd
 
-
 #Definition of functions
 #########################################################################
 
@@ -21,45 +20,44 @@ def input_selection():
 
     #store path and separator as defined by user
     path = input("Please insert the path to the data file you want to input here:")
-    sep = int(input("Which separator is used in your file? Tab (0), Comma (1), Semicolon (2), Pipe (3) or else (4)"))
 
     # if the path contains windows backslashes this must be replaced
     if path.__contains__("\\"):
         path = path.replace("\\", "/")
-        print(path)
 
-    seps = ["\t", ",", ";", "|"]
+    #if path is copied from file explorer in windoes, quotes are wraped around which must be eliminated
+    if path.__contains__("\""):
+        path = path.replace("\"", "")
 
     #loop which stores the data in the data frame if all inputs are valid. If errors occur,
     #user is asked to change his input
     while True:
-        if sep in range(5):
+        try:
+            bestsellers = pd.read_csv(path, sep = "\t")
+            bestsellers.columns = ["Title", "Author", "???", "Year", "Type"]
+            print("Thanks. Your data has been imported sucessfully")
+            break
 
-            if sep == 4:
-                sep = input("Please type in the separator you used")
-
-            try:
-                bestsellers = pd.read_csv(path, sep = seps[sep])
-                print("Thanks. Your data has been imported sucessfully")
-                break
-            except FileNotFoundError:
-                print("whoops. Something seems to have gone wrong. \n"
-                      "Please make sure that your input path is correct")
-                path = input("path:")
-            except:
-                print("separator error, please try again")
-                sep = input("separator = ")
-        else:
-            sep = input("Please select a valid choice:")
+        except FileNotFoundError:
+            print("whoops. Something seems to have gone wrong. \n"
+                  "Please make sure that your input path is correct")
+            path = input("path:")
 
         #user can at any time quit program by typing "q"
-        if sep == "q" or path == "q":
+        if path in ["Q", "q", "Quit", "quit"]:
             print("Programm sucessfully quit")
             break
 
 #function to display all books within a certain range of years (from start to end!)
 def function1():
-    print()
+    start = input("Select start year:")
+    end = input("Select end year:")
+
+    #convert to datetime (maybe already do above!)
+    bestsellers["Year"] = bestsellers["Year"].astype("datetime64")
+
+    bestsellers["Year"].year in range(start, end +1)
+    bestsellers["Year"] in range(start, end + 1)]
 
 #function to display all books in a specific month and year
 def function2():
@@ -72,7 +70,6 @@ def function3():
 #function to search for a title
 def function4():
     print()
-
 
 #execution of program
 #########################################################################
@@ -93,6 +90,7 @@ while True:
     try:
         selection = int(selection)
     except ValueError:
+        pass
 
     #calls respective function based on which action the user wants to execute
     if selection in range(5):
@@ -109,3 +107,9 @@ while True:
         break
     else:
         print("Invalid Input. Please try again")
+
+a = pd.DatetimeIndex(bestsellers["Year"]).year
+
+pd.DatetimeIndex(bestsellers["Year"]).year == 2013
+
+a = a.to_list()
