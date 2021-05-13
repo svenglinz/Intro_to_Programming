@@ -33,8 +33,10 @@ def input_selection():
     #user is asked to change his input
     while True:
         try:
-            bestsellers = pd.read_csv(path, sep = "\t")
-            bestsellers.columns = ["Title", "Author", "???", "Year", "Type"]
+            bestsellers = pd.read_csv(path, sep = "    ", engine = "python")
+            bestsellers.columns = ["Title", "Author", "Date", "Year", "Type"]
+            bestsellers["Year"] = bestsellers["Year"].astype("datetime64")
+
             print("Thanks. Your data has been imported sucessfully")
             break
 
@@ -50,14 +52,17 @@ def input_selection():
 
 #function to display all books within a certain range of years (from start to end!)
 def function1():
+    
     start = input("Select start year:")
     end = input("Select end year:")
 
     #convert to datetime (maybe already do above!)
-    bestsellers["Year"] = bestsellers["Year"].astype("datetime64")
 
-    bestsellers["Year"].year in range(start, end +1)
-    bestsellers["Year"] in range(start, end + 1)]
+    start_date = bestsellers["Year"] >= start
+    end_date = bestsellers["Year"] <= end
+    range_dates = start_date & end_date
+
+    print(bestsellers.loc[range_dates])
 
 #function to display all books in a specific month and year
 def function2():
