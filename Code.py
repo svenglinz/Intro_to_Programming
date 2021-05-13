@@ -112,9 +112,3 @@ while True:
         break
     else:
         print("Invalid Input. Please try again")
-
-a = pd.DatetimeIndex(bestsellers["Year"]).year
-
-pd.DatetimeIndex(bestsellers["Year"]).year == 2013
-
-a = a.to_list()
