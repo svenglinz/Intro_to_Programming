@@ -21,8 +21,9 @@ import io
 #index is a vector of T/F which indicates which rows from the Data Frame Bestsellers should be chosen for display
 def display_titles(index):
     output = bestsellers.loc[index]
+    output.index = range(output.__len__())
     for i in range(output.__len__()):
-        row = bestsellers.loc[i]
+        row = output.loc[i]
         print(row["Title"] + ", " + "by " + row["Author"] + " " + row["Year"].strftime("%d/%m/%Y"))
 
 def input_integer(text):
