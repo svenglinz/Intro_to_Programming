@@ -16,78 +16,6 @@ import io
 #Definition of functions
 #########################################################################
 
-#function which tests that the input is an integer
-
-#index is a vector of T/F which indicates which rows from the Data Frame Bestsellers should be chosen for display
-def display_titles(index):
-    output = bestsellers.loc[index]
-    output.index = range(output.__len__())
-    for i in range(output.__len__()):
-        row = output.loc[i]
-        print(row["Title"] + ", " + "by " + row["Author"] + " " + row["Year"].strftime("%d/%m/%Y"))
-
-def input_integer(text):
-    arg = input(text)
-    while True:
-        try:
-            arg = int(arg)
-            if int(arg) == float(arg):
-                return(arg)
-                break
-            else:
-                print("Please make sure to input a valid integer number")
-        except ValueError:
-            print("Please make sure to input a valid integer number")
-            arg = input()
-
-#function to display all books within a certain range of years (from start to end!)
-def function1():
-    while True:
-        start_year =input_integer("Select start year:")
-        end_year = input_integer("Select end year:")
-        try:
-            start = pd.Timestamp(start_year,1,1)
-            end = pd.Timestamp(end_year,1,1)
-
-            if end < start:
-                print("Please make sure that your start value is before your end value")
-                pass
-            else:
-                break
-        except ValueError:
-            min = pd.Timestamp.min.year
-            max = pd.Timestamp.max.year
-            print("Please make sure to only select values between " + str(min) + " and " + str(
-                max))
-
-    start_date = bestsellers["Year"] >= start
-    end_date = bestsellers["Year"] <= end
-    range_dates = start_date & end_date
-
-    if bestsellers.loc[range_dates].empty:
-        print("No titles were found within the specified range of years")
-    else:
-        print("All Titles between" + " " + str(start_year) + " " + "and"+ " " + str(end_year) + ":")
-        display_titles(range_dates)
-
-#function to display all books in a specific month and year
-def function2():
-    print()
-
-#function to search for author
-def function3():
-    print()
-
-#function to search for a title
-def function4():
-    print()
-
-#execution of program
-#########################################################################
-
-#Function which asks the user for a file path and its separator.
-#Based on the user input, the file is stored as a data frame under then name bestsellers
-
 #store path and separator as defined by user
 path = input("Please insert the path to the data file you want to input here:")
 
@@ -129,6 +57,67 @@ while True:
         print("Programm sucessfully quit")
         break
 
+
+#index is a vector of T/F which indicates which rows from the Data Frame Bestsellers should be chosen for display
+def display_titles(index):
+    output = bestsellers.loc[index]
+    output.index = range(output.__len__())
+    for i in range(output.__len__()):
+        row = output.loc[i]
+        print(row["Title"] + ", " + "by " + row["Author"] + " " + row["Year"].strftime("%d/%m/%Y"))
+
+def input_integer(text):
+    arg = input(text)
+    while True:
+        try:
+            arg = int(arg)
+            if int(arg) == float(arg):
+                return(arg)
+                break
+            else:
+                print("Please make sure to input a valid integer number")
+        except ValueError:
+            print("Please make sure to input a valid integer number")
+            arg = input()
+
+#function to display all books within a certain range of years (from start to end!)
+def function1():
+    while True:
+        start = input_integer("Select start year:")
+        end = input_integer("Select end year:")
+
+        if end < start:
+            print("Please make sure that your start value is before your end value")
+            pass
+        else:
+            break
+
+    start_date = bestsellers["Year"].dt.year >= start
+    end_date = bestsellers["Year"].dt.year <= end
+    range_dates = start_date & end_date
+
+    if bestsellers.loc[range_dates].empty:
+        print("No titles were found within the specified range of years")
+    else:
+        print("All Titles between" + " " + str(start) + " " + "and"+ " " + str(end) + ":")
+        display_titles(range_dates)
+
+#function to display all books in a specific month and year
+def function2():
+
+#function to search for author
+def function3():
+
+#function to search for a title
+def function4():
+
+
+#execution of program
+#########################################################################
+
+#Function which asks the user for a file path and its separator.
+#Based on the user input, the file is stored as a data frame under then name bestsellers
+
 while True:
     selection = input("What would you like to do ? \n"
                       "1: Look up year range \n"
@@ -158,5 +147,3 @@ while True:
         break
     else:
         print("Invalid Input. Please try again")
-
-
