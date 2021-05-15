@@ -17,31 +17,29 @@ import io
 #########################################################################
 
 #store path and separator as defined by user
-path = input("Please insert the path to the data file you want to input here:")
-
-# if the path contains windows backslashes this must be replaced
-if path.__contains__("\\"):
-    path = path.replace("\\", "/")
-
-#if path is copied from file explorer in windoes, quotes are wraped around which must be eliminated
-if path.__contains__("\""):
-    path = path.replace("\"", "")
-
-#loop which stores the data in the data frame if all inputs are valid. If errors occur,
-#user is asked to change his input
-
-#the original file should not be altered
-
-fin = open(path, "rt")
-data = fin.read()
-fin.close()
-
-data = re.sub(r"([A-Z])", r" \1", data)
-data = io.StringIO(data)
 
 while True:
     try:
-        bestsellers = pd.read_csv(data, sep = "\t")
+        path = input("Please insert the path to the data file you want to input here:")
+
+        # if the path contains windows backslashes this must be replaced
+        if path.__contains__("\\"):
+            path = path.replace("\\", "/")
+
+        #if path is copied from file explorer in windoes, quotes are wraped around which must be eliminated
+        if path.__contains__("\""):
+            path = path.replace("\"", "")
+
+        #loop which stores the data in the data frame if all inputs are valid. If errors occur,
+        #user is asked to change his input
+
+        #the original file should not be altered
+        fin = open(path, "rt")
+        data = fin.read()
+        fin.close()
+        data = re.sub(r"([A-Z])", r" \1", data)
+        data = io.StringIO(data)
+        bestsellers = pd.read_csv(data, sep="\t")
         bestsellers.columns = ["Title", "Author", "Date", "Year", "Type"]
         bestsellers["Year"] = bestsellers["Year"].astype("datetime64")
         print("Thanks. Your data has been imported sucessfully")
@@ -49,14 +47,8 @@ while True:
 
     except FileNotFoundError:
         print("whoops. Something seems to have gone wrong. \n"
-                "Please make sure that your input path is correct")
+              "Please make sure that your input path is correct")
         path = input("path:")
-
-    #user can at any time break out of the loop by typing q or Q
-    if path in ["Q", "q"]:
-        print("Programm sucessfully quit")
-        break
-
 
 #index is a vector of T/F which indicates which rows from the Data Frame Bestsellers should be chosen for display
 def display_titles(index):
@@ -113,7 +105,7 @@ def function2():
         range = index_year & index_month
 
         display_titles(range)
-        
+
 #function to search for author
 def function3():
 
@@ -122,10 +114,9 @@ def function3():
     author = bestsellers["Author"].str.lower()
     index = title.str.contains(user_input)
     display_titles(index)
-    
+
 #function to search for a title
 def function4():
-
     user_input = input("Select")
     #input stuff & convert input to all lower cases
     title = bestsellers["Title"].str.lower()
