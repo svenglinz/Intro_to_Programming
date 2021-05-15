@@ -105,12 +105,32 @@ def function1():
 #function to display all books in a specific month and year
 def function2():
 
+        month = input_integer("Select month")
+        year = input_integer("Select year:")
+
+        index_month = bestsellers["Year"].dt.month == month
+        index_year = bestsellers["Year"].dt.year == year
+        range = index_year & index_month
+
+        display_titles(range)
+        
 #function to search for author
 def function3():
 
+    #input stuff & convert input to all lower cases
+    user_input = input("Select")
+    author = bestsellers["Author"].str.lower()
+    index = title.str.contains(user_input)
+    display_titles(index)
+    
 #function to search for a title
 def function4():
 
+    user_input = input("Select")
+    #input stuff & convert input to all lower cases
+    title = bestsellers["Title"].str.lower()
+    index = title.str.contains(user_input)
+    display_titles(index)
 
 #execution of program
 #########################################################################
