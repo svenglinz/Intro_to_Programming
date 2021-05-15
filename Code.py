@@ -103,7 +103,10 @@ def function2():
         index_month = bestsellers["Year"].dt.month == month
         index_year = bestsellers["Year"].dt.year == year
         range = index_year & index_month
-
+    if bestsellers.loc[range].empty:
+        print("No titles were found within the specified range of years")
+    else:
+        print("All Titles between" + " " + str(start) + " " + "and" + " " + str(end) + ":")
         display_titles(range)
 
 #function to search for author
@@ -113,7 +116,12 @@ def function3():
     user_input = input("Select")
     author = bestsellers["Author"].str.lower()
     index = title.str.contains(user_input)
-    display_titles(index)
+
+    if bestsellers.loc[index].empty:
+        print("No titles were found within the specified range of years")
+    else:
+        print("All Titles between" + " " + str(start) + " " + "and" + " " + str(end) + ":")
+        display_titles(index)
 
 #function to search for a title
 def function4():
@@ -121,7 +129,12 @@ def function4():
     #input stuff & convert input to all lower cases
     title = bestsellers["Title"].str.lower()
     index = title.str.contains(user_input)
-    display_titles(index)
+    
+    if bestsellers.loc[index].empty:
+        print("No titles were found within the specified range of years")
+    else:
+        print("All Titles between" + " " + str(start) + " " + "and" + " " + str(end) + ":")
+        display_titles(index)
 
 #execution of program
 #########################################################################
