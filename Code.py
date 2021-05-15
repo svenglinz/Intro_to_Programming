@@ -10,6 +10,8 @@
 #Setup
 #########################################################################
 import pandas as pd
+import re
+import io
 
 #Definition of functions
 #########################################################################
@@ -80,6 +82,7 @@ def function3():
 def function4():
     print()
 
+
 #execution of program
 #########################################################################
 
@@ -99,9 +102,23 @@ if path.__contains__("\""):
 
 #loop which stores the data in the data frame if all inputs are valid. If errors occur,
 #user is asked to change his input
+
+#when the document is downloaded, the taps are replaced by 4 spaces. We will revert this. Further, we will
+#split each word before a capitalized letter since all titles, authors etc.. are written as one string...
+
+#the original file should not be altered
+
+fin = open(path, "rt")
+data = fin.read()
+fin.close()
+
+data = data.replace("    ", "\t")
+data = re.sub(r"([A-Z])", r" \1", data)
+data = io.StringIO(data)
+
 while True:
     try:
-        bestsellers = pd.read_csv(path, sep = "    ", engine = "python")
+        bestsellers = pd.read_csv(data, sep = "\t")
         bestsellers.columns = ["Title", "Author", "Date", "Year", "Type"]
         bestsellers["Year"] = bestsellers["Year"].astype("datetime64")
         print("Thanks. Your data has been imported sucessfully")
@@ -112,20 +129,18 @@ while True:
                 "Please make sure that your input path is correct")
         path = input("path:")
 
-    #user can at any time quit program by typing "q"
-    if path in ["Q", "q", "Quit", "quit"]:
+    #user can at any time break out of the loop by typing q or Q
+    if path in ["Q", "q"]:
         print("Programm sucessfully quit")
         break
 
 while True:
-
     selection = input("What would you like to do ? \n"
                       "1: Look up year range \n"
                       "2: Look up month/year \n"
                       "3: Search for author \n"
                       "4: Search for title \n"
-                      "q: Quit\n"
-                      "5: Change data")
+                      "q: Quit\n")
 
     #user input is converted to integer if possible. If not, no conversion takes place
     try:
@@ -148,3 +163,5 @@ while True:
         break
     else:
         print("Invalid Input. Please try again")
+
+
