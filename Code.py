@@ -41,7 +41,6 @@ def input_integer(text):
 
 #function to display all books within a certain range of years (from start to end!)
 def function1():
-
     while True:
         start_year =input_integer("Select start year:")
         end_year = input_integer("Select end year:")
@@ -82,7 +81,6 @@ def function3():
 def function4():
     print()
 
-
 #execution of program
 #########################################################################
 
@@ -103,16 +101,12 @@ if path.__contains__("\""):
 #loop which stores the data in the data frame if all inputs are valid. If errors occur,
 #user is asked to change his input
 
-#when the document is downloaded, the taps are replaced by 4 spaces. We will revert this. Further, we will
-#split each word before a capitalized letter since all titles, authors etc.. are written as one string...
-
 #the original file should not be altered
 
 fin = open(path, "rt")
 data = fin.read()
 fin.close()
 
-data = data.replace("    ", "\t")
 data = re.sub(r"([A-Z])", r" \1", data)
 data = io.StringIO(data)
 
