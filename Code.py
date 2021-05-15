@@ -16,6 +16,7 @@ import pandas as pd
 
 #Function which asks the user for a file path and its separator.
 #Based on the user input, the file is stored as a data frame under then name bestsellers
+
 def input_selection():
 
     #store path and separator as defined by user
@@ -49,21 +50,58 @@ def input_selection():
         if path in ["Q", "q", "Quit", "quit"]:
             print("Programm sucessfully quit")
             break
-
+            
+#function which tests that the input is an integer
+def input_integer(text):
+    arg = input(text)
+    while True:
+        try:
+            arg = int(arg)
+            if int(arg) == float(arg):
+                return(arg)
+                break
+            else:
+                print("Please make sure to input a valid integer number")
+        except ValueError:
+            print("Please make sure to input a valid integer number")
+            arg = input()
+            
 #function to display all books within a certain range of years (from start to end!)
 def function1():
     
-    start = input("Select start year:")
-    end = input("Select end year:")
+    start_year =input_integer("Select start year:")
+    end_year = input_integer("Select end year:")
 
-    #convert to datetime (maybe already do above!)
+    #because the timestamp function only accepts years in a certain range
+    if start_year < pd.Timestamp.min.year:
+        start_year = pd.Timestamp.min.year
+        print("start year has been set to" + " " + str(pd.Timestamp.min.year))
+    elif start_year > pd.Timestamp.max.year:
+        start_year = pd.Timestamp.max.year
+        print("start year has been set to" + " " + str(pd.Timestamp.max.year))
+
+    if end_year > pd.Timestamp.max.year:
+        end_year = pd.Timestamp.max.year
+        print("end year has been set to" + " " + str(pd.Timestamp.max.year))
+    elif end_year < pd.Timestamp.min.year:
+        end_year = pd.Timestamp.min.year
+        print("end year has been set to" + " " + str(pd.Timestamp.min.year))
+
+    start = pd.Timestamp(start_year,1,1)
+    end = pd.Timestamp(end_year,1,1)
+
+    if end < start:
+        print("Please make sure that your start value is before your end value")
 
     start_date = bestsellers["Year"] >= start
     end_date = bestsellers["Year"] <= end
     range_dates = start_date & end_date
 
-    print(bestsellers.loc[range_dates])
-
+    if bestsellers.loc[range_dates].empty:
+        print("No titles were found within the specified range of years")
+    else:
+        print(bestsellers.loc[range_dates])
+        
 #function to display all books in a specific month and year
 def function2():
     print()
