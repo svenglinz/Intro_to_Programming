@@ -4,6 +4,10 @@
 #        authors, books in certain periods etc.
 #Date: xx.xx.2021
 #Authors:
+    #- 1
+    #- 2
+    #- 3
+    #- 4
 #########################################################################
 
 
@@ -13,51 +17,57 @@ import pandas as pd
 import re
 import io
 
-#Definition of functions
+# Define functions
 #########################################################################
 
-#store path and separator as defined by user
+#Asks user for file path, imports file and formats the data for further analysis
+#returns the prepared and cleaned CSV
 
-while True:
-    try:
-        path = input("Please insert the path to the data file you want to input here:")
+def import_csv():
+    while True:
+        try:
+            path = input("Please insert the path to the data file you want to input here:")
 
-        # if the path contains windows backslashes this must be replaced
-        if path.__contains__("\\"):
-            path = path.replace("\\", "/")
+            # if the path contains windows backslashes (\), thse must be replaced by /
+            if path.__contains__("\\"):
+                path = path.replace("\\", "/")
 
-        #if path is copied from file explorer in windoes, quotes are wraped around which must be eliminated
-        if path.__contains__("\""):
-            path = path.replace("\"", "")
+            #if path is copied from file explorer in Windows, quotes are wraped around which must be eliminated
+            if path.__contains__("\""):
+                path = path.replace("\"", "")
 
-        #loop which stores the data in the data frame if all inputs are valid. If errors occur,
-        #user is asked to change his input
+            #open the file in read mode
+            fin = open(path, "rt")
+            #store the file in the data variable
+            data = fin.read()
+            fin.close()
 
-        #the original file should not be altered
-        fin = open(path, "rt")
-        data = fin.read()
-        fin.close()
-        data = re.sub(r"([A-Z])", r" \1", data)
-        data = io.StringIO(data)
-        bestsellers = pd.read_csv(data, sep="\t")
-        bestsellers.columns = ["Title", "Author", "Date", "Year", "Type"]
-        bestsellers["Year"] = bestsellers["Year"].astype("datetime64")
-        print("Thanks. Your data has been imported sucessfully")
-        break
+            #Separate all words before each capital letter (as proxy to separate words)
+            #and store data in a format that can be read by pd.read_csv
+            data = re.sub(r"([A-Z])", r" \1", data)
+            data = io.StringIO(data)
 
-    except FileNotFoundError:
-        print("whoops. Something seems to have gone wrong. \n"
-              "Please make sure that your input path is correct")
-        path = input("path:")
+            #read modified csv file, store as bestsellers and modity data types and colnames
+            bestsellers = pd.read_csv(data, sep="\t")
+            bestsellers.columns = ["Title", "Author", "Publisher", "Date", "Type"]
+            bestsellers["Date"] = bestsellers["Date"].astype("datetime64")
+            print("Thanks. Your data has been imported sucessfully")
+            return(bestsellers)
+            break
 
-#index is a vector of T/F which indicates which rows from the Data Frame Bestsellers should be chosen for display
+        except FileNotFoundError:
+            print("whoops. Something seems to have gone wrong. \n"
+                  "Please make sure that your input path is correct")
+
+#returns the titles selected by the user (given by a T/F string) in a readable format
 def display_titles(index):
     output = bestsellers.loc[index]
     output.index = range(output.__len__())
     for i in range(output.__len__()):
         row = output.loc[i]
-        print(row["Title"] + ", " + "by " + row["Author"] + " " + row["Year"].strftime("%d/%m/%Y"))
+        print(row["Title"] + ", " + "by " + row["Author"] + " " + row["Date"].strftime("%d/%m/%Y"))
 
+#function which makes sure that the user enters an integer number
 def input_integer(text):
     arg = input(text)
     while True:
@@ -84,64 +94,74 @@ def function1():
         else:
             break
 
-    start_date = bestsellers["Year"].dt.year >= start
-    end_date = bestsellers["Year"].dt.year <= end
+    #create T/F string which indicates which books are within the selected years
+    start_date = bestsellers["Date"].dt.year >= start
+    end_date = bestsellers["Date"].dt.year <= end
     range_dates = start_date & end_date
 
+    #print results
     if bestsellers.loc[range_dates].empty:
         print("No titles were found within the specified range of years")
     else:
-        print("All Titles between" + " " + str(start) + " " + "and"+ " " + str(end) + ":")
+        print("All Titles between " + str(start) + " " + "and " + str(end) + ":")
         display_titles(range_dates)
 
 #function to display all books in a specific month and year
 def function2():
 
-        month = input_integer("Select month")
-        year = input_integer("Select year:")
+    month = input_integer("Select month:")
+    year = input_integer("Select year:")
 
-        index_month = bestsellers["Year"].dt.month == month
-        index_year = bestsellers["Year"].dt.year == year
-        range = index_year & index_month
+    #create T/F string which indicates which books match the selected month and year
+    index_month = bestsellers["Date"].dt.month == month
+    index_year = bestsellers["Date"].dt.year == year
+    range = index_year & index_month
+
+    #print results
     if bestsellers.loc[range].empty:
-        print("No titles were found within the specified range of years")
+        print("No titles were found at the specified month and year")
     else:
-        print("All Titles between" + " " + str(start) + " " + "and" + " " + str(end) + ":")
+        print("All Titles in " + str(month) + ", " + str(year) + ":")
         display_titles(range)
 
 #function to search for author
 def function3():
 
-    #input stuff & convert input to all lower cases
-    user_input = input("Select")
+    #create T/F string which indicates which books match the author name
+    user_input = input("Select").lower()
     author = bestsellers["Author"].str.lower()
-    index = title.str.contains(user_input)
+    index = author.str.contains(user_input)
 
+    #print results
     if bestsellers.loc[index].empty:
-        print("No titles were found within the specified range of years")
+        print("No titles with the desired author were found")
     else:
-        print("All Titles between" + " " + str(start) + " " + "and" + " " + str(end) + ":")
+        print("All Titles with the Author name " + user_input + ":")
         display_titles(index)
 
 #function to search for a title
 def function4():
-    user_input = input("Select")
-    #input stuff & convert input to all lower cases
+
+    #create T/F string which indicates which books match the author desired title
+    user_input = input("Select").lower()
     title = bestsellers["Title"].str.lower()
     index = title.str.contains(user_input)
-    
+
+    #print results
     if bestsellers.loc[index].empty:
-        print("No titles were found within the specified range of years")
+        print("No books with the desired title were found")
     else:
-        print("All Titles between" + " " + str(start) + " " + "and" + " " + str(end) + ":")
+        print("All Books with the Title " + user_input + ":")
         display_titles(index)
 
 #execution of program
 #########################################################################
 
-#Function which asks the user for a file path and its separator.
-#Based on the user input, the file is stored as a data frame under then name bestsellers
+#import user file
+bestsellers = import_csv()
 
+#infinite loop which presents the user with the available selections.
+#Upon selection, the resepctive function is executed and user can chose a new task
 while True:
     selection = input("What would you like to do ? \n"
                       "1: Look up year range \n"
@@ -157,7 +177,7 @@ while True:
         pass
 
     #calls respective function based on which action the user wants to execute
-    if selection in range(5):
+    if selection in [1,2,3,4]:
         if selection == 1:
             function1()
         elif selection == 2:
