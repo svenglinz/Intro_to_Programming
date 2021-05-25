@@ -128,7 +128,7 @@ def function2():
 def function3():
 
     #create T/F string which indicates which books match the author name
-    user_input = input("Select").lower()
+    user_input = input("Enter an author's name (or part of a name): ").lower()
     author = bestsellers["Author"].str.lower()
     index = author.str.contains(user_input)
 
@@ -143,7 +143,7 @@ def function3():
 def function4():
 
     #create T/F string which indicates which books match the author desired title
-    user_input = input("Select").lower()
+    user_input = input("Enter a title (or part of a title): ").lower()
     title = bestsellers["Title"].str.lower()
     index = title.str.contains(user_input)
 
