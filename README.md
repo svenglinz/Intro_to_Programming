@@ -1,8 +1,8 @@
-## New York Times
+## New York Times Best Sellers - Finder
 - Language: Python 
 - Group ID: 2303
 - Group Members: Sven Glinz, Leopold Huberth, Nicolas Nipp and Mike Peruzzi
-- Date: 05/2021
+- Date: 30/05/2021
 
 ## Background and Objective:
 
@@ -53,24 +53,24 @@ Enter ending year:
 >1962
 ```
 All Titles between 1960 and 1962 :
-   A Shade of Difference, by Allen Drury (10/28/1962)
-   Franny and Zooey, by J. D. Sallinger (10/29/1961)
-   Hawaii, by James Michener (1/17/1960)
-   Seven Days in May, by Fletcher Knebel (11/18/1962)
-   Ship of Fools, by Katherine Anne Porter (4/29/1962)
-   The Agony and the Ecstasy, by Irving Stone (4/23/1961)
-   The Last of the Just, by André Schwarz-Bart (3/26/1961)
-   Born Free, by Joy Adamson (8/7/1960)
-   Calories Don't Count, by Herman Taller (3/25/1962)
-   May This House Be Safe from Tigers, by Alexander King (3/13/1960)
-   Silent Spring, by Rachel Carson (10/28/1962)
-   The Making of the President - 1960, by Theodore H. White (9/10/1961)
-   The New English Bible, by Oxford University Press (Editor) (5/28/1961)
-   The Rise and Fall of the Third Reich, by William Shirer (12/4/1960)
-   The Rothchilds, by Frederic Morton (6/24/1962)
-   The Waste Makers, by Vance Packard (11/6/1960)
-   Travels with Charley, by John Steinbeck (10/21/1962)
-   ```
+ A Shade of Difference, by Allen Drury (10/28/1962)
+ Franny and Zooey, by J. D. Sallinger (10/29/1961)
+ Hawaii, by James Michener (1/17/1960)
+ Seven Days in May, by Fletcher Knebel (11/18/1962)
+ Ship of Fools, by Katherine Anne Porter (4/29/1962)
+ The Agony and the Ecstasy, by Irving Stone (4/23/1961)
+ The Last of the Just, by André Schwarz-Bart (3/26/1961)
+ Born Free, by Joy Adamson (8/7/1960)
+ Calories Don't Count, by Herman Taller (3/25/1962)
+ May This House Be Safe from Tigers, by Alexander King (3/13/1960)
+ Silent Spring, by Rachel Carson (10/28/1962)
+ The Making of the President - 1960, by Theodore H. White (9/10/1961)
+ The New English Bible, by Oxford University Press (Editor) (5/28/1961)
+ The Rise and Fall of the Third Reich, by William Shirer (12/4/1960)
+ The Rothchilds, by Frederic Morton (6/24/1962)
+ The Waste Makers, by Vance Packard (11/6/1960)
+ Travels with Charley, by John Steinbeck (10/21/1962)
+ ```
 ```
 What would you like to do?
 1: Look up year range
@@ -81,21 +81,21 @@ Q: Quit
 ```
 >2
 ```
-  Enter month (as a number, 1-12):
-  ```
+Enter month (as a number, 1-12):
+```
 >9
 ```
-  Enter year:
-  ```
+Enter year:
+```
 >1990
 ```
 All Titles in month 9 of 1990 :
-   Four Past Midnight, by Stephen King (9/16/1990)
-   Memories of Midnight, by Sidney Sheldon (9/2/1990)
-   Darkness Visible, by William Styron (9/16/1990)
-   Millie's Book, by Barbara Bush (9/30/1990)
-   Trump: Surviving at the Top, by Donald Trump (9/9/1990)
-   ```
+ Four Past Midnight, by Stephen King (9/16/1990)
+ Memories of Midnight, by Sidney Sheldon (9/2/1990)
+ Darkness Visible, by William Styron (9/16/1990)
+ Millie's Book, by Barbara Bush (9/30/1990)
+ Trump: Surviving at the Top, by Donald Trump (9/9/1990)
+ ```
 ```
 What would you like to do?
 1: Look up year range
@@ -106,13 +106,14 @@ Q: Quit
 ```
 >3
 ```
-  Enter an author's name (or part of a name):
-  ```
+Enter an author's name (or part of a name):
+```
 >tolkein
 ```
-   Silmarillion, by J. R. R. Tolkein (10/2/1977)
-   The Children of the Húrin, by J.R.R. Tolkein (5/6/2007)
-   ```
+All Titles with the Author name tolkein:
+ Silmarillion, by J. R. R. Tolkein (10/2/1977)
+ The Children of the Húrin, by J.R.R. Tolkein (5/6/2007)
+ ```
 ```
 What would you like to do?
 1: Look up year range
@@ -123,13 +124,14 @@ Q: Quit
 ```
 >4
 ```
-  Enter a title (or part of a title):
-  ```
+Enter a title (or part of a title):
+```
 >secret
 ```
-   Harry Potter and the Chamber of Secrets, by J. K. Rowling (6/20/1999)
-   The Secret of Santa Vittoria, by Robert Crichton (11/20/1966)
-   The Secret Pilgrim, by John le Carré (1/20/1991)
-   ```
+All Books with the Title secret:
+ Harry Potter and the Chamber of Secrets, by J. K. Rowling (6/20/1999)
+ The Secret of Santa Vittoria, by Robert Crichton (11/20/1966)
+ The Secret Pilgrim, by John le Carré (1/20/1991)
+ ```
 
 
