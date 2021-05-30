@@ -60,7 +60,7 @@ def display_titles(index):
     output.index = range(output.__len__())
     for i in range(output.__len__()):
         row = output.loc[i]
-        print(row["Title"] + ", " + "by " + row["Author"] + " " + row["Date"].strftime("%d/%m/%Y"))
+        print(row["Title"] + ", " + "by " + row["Author"] + " " + "(" + row["Date"].strftime("%d/%m/%Y") + ")")
 
 #function which makes sure that the user enters an integer number
 def input_integer(text):
@@ -81,14 +81,14 @@ def input_integer(text):
 def function1():
     while True:
         while True:
-            start = input_integer("Select start year:")
+            start = input_integer("Enter beginning year:")
             if start not in range(1942,2014):
                 print("Please enter a start year between 1942 & 2013")
                 pass
             else:
                 break
         while True:
-            end = input_integer("Select end year:")
+            end = input_integer("Enter ending year:")
             if end not in range(1942,2014):
                 print("Please enter an end year between 1942 & 2013")
                 pass
@@ -115,16 +115,16 @@ def function1():
 #function to display all books in a specific month and year
 def function2():
     while True:
-        month = input_integer("Select month:")      
+        month = input_integer("Enter month (as a number, 1-12):")
         if month > 12 or month < 1:
             print("Please enter a new valid month")
             pass
         else:
             break
     while True:
-        year = input_integer("Select year:")     
+        year = input_integer("Enter year:")
         if year > 2013 or year < 1942:
-            print("Please enter a new valid year")
+            print("Please enter a new valid year (1942-2013)")
             pass
         else:
             break
