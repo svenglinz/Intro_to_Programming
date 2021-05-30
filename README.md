@@ -89,7 +89,7 @@ Enter year:
 ```
 >1990
 ```
-All Titles in month 9 of 1990 :
+All Titles in month 9, 1990 :
  Four Past Midnight, by Stephen King (9/16/1990)
  Memories of Midnight, by Sidney Sheldon (9/2/1990)
  Darkness Visible, by William Styron (9/16/1990)
