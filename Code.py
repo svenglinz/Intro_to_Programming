@@ -85,9 +85,20 @@ def input_integer(text):
 #function to display all books within a certain range of years (from start to end!)
 def function1():
     while True:
-        start = input_integer("Select start year:")
-        end = input_integer("Select end year:")
-
+        while True:
+            start = input_integer("Select start year:")
+            if start not in range(1942,2014):
+                print("Please enter a start year between 1942 & 2013")
+                pass
+            else:
+                break
+        while True:
+            end = input_integer("Select end year:")
+            if end not in range(1942,2014):
+                print("Please enter an end year between 1942 & 2013")
+                pass
+            else:
+                break
         if end < start:
             print("Please make sure that your start value is before your end value")
             pass
