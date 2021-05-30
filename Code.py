@@ -2,14 +2,9 @@
 #Task: # Program which lets the user import data from the NYT Bestseller list.
 #        User can then perform inspection tasks such as search for title,
 #        authors, books in certain periods etc.
-#Date: xx.xx.2021
-#Authors:
-    #- 1
-    #- 2
-    #- 3
-    #- 4
+#Date: 30.05.2021
+#Authors: Sven Glinz, Leopold Huberth, Nicolas Nipp and Mike Peruzzi
 #########################################################################
-
 
 #Setup
 #########################################################################
